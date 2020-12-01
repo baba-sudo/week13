@@ -1,0 +1,26 @@
+import numpy as np
+import pandas as pd
+import jieba
+from wordcloud import WordCloud
+RedDream.RedDream.str.match("^第")
+RedDream.loc[masc]
+
+
+chapter = RedDream.loc[masc]
+chapter.reset_index(drop=True,inplace=True)
+chapter_df =pd.DataFrame(list( RedDream.loc[masc].RedDream.str.split(" ")),columns=['1','2','3'])
+RedDream.list = list( RedDream.loc[masc].RedDream.str.split(" "))
+chapter_df
+
+chapter_df["startid"] =  masc[masc == True].index
+chapter_df["endid"] = chapter_df["startid"][1:len(chapter_df["startid"])].reset_index(drop = True)-1
+chapter_df["endid"][len(chapter_df["endid"])-1]=RedDream.index[-1]
+chapter_df["Lengthchaps"] = chapter_df.endid - chapter_df.startid
+chapter_df["Artical"] = "Artical"
+chapter_df[::10]
+
+for a in chapter_df.index:
+    chapid = np.arange(chapter_df.startid[a]+1,int(chapter_df.endid[a]))
+    chapter_df["Artical"][a] = "".join(list(RedDream.RedDream[chapid])).replace("\u3000","")
+    
+chapter_df
