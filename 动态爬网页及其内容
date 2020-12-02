@@ -1,0 +1,26 @@
+from urllib.request import urlopen,Request
+from bs4 import BeautifulSoup
+
+f = open('content.txt', "w", encoding='UTF-8')
+for i in range(2,10):
+    url="http://www.cfbond.com/in/cfkxlb/index_"+str(i)+".shtml"
+    headers={'User-Agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3947.100 Safari/537.36'}
+    ret=Request(url,headers=headers)
+    html = urlopen(ret)
+    bs = BeautifulSoup(html, "html.parser")
+    title = bs.find_all('h2',{"class":"pubList_tit"})
+    # for titles in title:
+    #     titles = titles.get_text()
+    #     print(titles)
+    for link in bs.find_all('a'):
+        link = link.get('href')
+        # print(link)
+        website = Request(link, headers=headers)
+        web = urlopen(website)
+        bs = BeautifulSoup(web, "html.parser")
+        contents = bs.find_all('div', {"class": "s_xlLContCRC"})
+        for content in contents:
+            content = content.get_text()
+            # print(content)
+        f.write(content)
+f.close()
